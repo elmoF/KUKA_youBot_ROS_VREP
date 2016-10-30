@@ -1,6 +1,0 @@
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/CMakeFiles/clean_test_results.dir
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/CMakeFiles/doxygen.dir
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/gtest/CMakeFiles/gtest.dir
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/CMakeFiles/run_tests.dir
-/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/CMakeFiles/tests.dir

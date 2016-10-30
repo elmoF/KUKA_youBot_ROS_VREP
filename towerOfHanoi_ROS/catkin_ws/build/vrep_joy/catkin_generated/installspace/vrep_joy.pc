@@ -1,8 +1,0 @@
-prefix=/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/install
-
-Name: vrep_joy
-Description: Description of vrep_joy
-Version: 3.3.1
-Cflags: 
-Libs: -L/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/install/lib 
-Requires: roscpp joy

@@ -1,8 +1,0 @@
-prefix=/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/devel
-
-Name: towerROSHanoi
-Description: Description of towerROSHanoi
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/devel/lib 
-Requires: 

@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "youbot_HTWG")
-set(youbot_HTWG_MAINTAINER "youbot <youbot@todo.todo>")
-set(youbot_HTWG_DEPRECATED "")
-set(youbot_HTWG_VERSION "0.0.0")
-set(youbot_HTWG_BUILD_DEPENDS "rospy")
-set(youbot_HTWG_RUN_DEPENDS "rospy")
-set(youbot_HTWG_BUILDTOOL_DEPENDS "catkin")

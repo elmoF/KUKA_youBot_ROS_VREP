@@ -1,8 +1,0 @@
-prefix=/home/youbot/Simulation_Examples/Masterarbeit2/catkin_ws/devel
-
-Name: vrep_youbot_plugin
-Description: Description of vrep_youbot_plugin
-Version: 0.0.1
-Cflags: 
-Libs: -L/home/youbot/Simulation_Examples/Masterarbeit2/catkin_ws/devel/lib 
-Requires: roscpp rosconsole std_msgs roslib brics_actuator cv_bridge tf geometry_msgs sensor_msgs roscpp rosconsole std_msgs brics_actuator
