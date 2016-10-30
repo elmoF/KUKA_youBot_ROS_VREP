@@ -1,0 +1,56 @@
+[[36mvrep_skeleton_msg_and_srv[0m] [1m[34m==>[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv/build_env.sh /usr/bin/cmake /home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/src/vrep_skeleton_msg_and_srv -DCATKIN_DEVEL_PREFIX=/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/install[0m' [30m[1min[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv[0m'[0m
+[36m-- [0mThe C compiler identification is GNU
+[0m[36m-- [0mThe CXX compiler identification is GNU
+[0m[36m-- [0mCheck for working C compiler:[33m /usr/bin/gcc
+[0m[0m[36m-- [0mCheck for working C compiler:[33m /usr/bin/gcc -- works
+[0m[0m[36m-- [0mDetecting C compiler ABI info
+[0m[36m-- [0mDetecting C compiler ABI info - done
+[0m[36m-- [0mCheck for working CXX compiler:[33m /usr/bin/c++
+[0m[0m[36m-- [0mCheck for working CXX compiler:[33m /usr/bin/c++ -- works
+[0m[0m[36m-- [0mDetecting CXX compiler ABI info
+[0m[36m-- [0mDetecting CXX compiler ABI info - done
+[0m[36m-- [0mUsing CATKIN_DEVEL_PREFIX:[33m /home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/devel
+[0m[0m[36m-- [0mUsing CMAKE_PREFIX_PATH:[33m /opt/ros/hydro
+[0m[0m[36m-- [0mThis workspace overlays:[33m /opt/ros/hydro
+[0m[0m[36m-- [0mFound PythonInterp:[33m /usr/bin/python (found version "2.7.3")
+[0m[0m[36m-- [0mUsing PYTHON_EXECUTABLE:[33m /usr/bin/python
+[0m[0m[36m-- [0mPython version:[33m 2.7
+[0m[0m[36m-- [0mUsing Debian Python package layout
+[0m[36m-- [0mUsing CATKIN_ENABLE_TESTING:[33m ON
+[0m[0m[36m-- [0mCall enable_testing()
+[0m[36m-- [0mUsing CATKIN_TEST_RESULTS_DIR:[33m /home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv/test_results
+[0m[0m[36m-- [0mLooking for include files CMAKE_HAVE_PTHREAD_H
+[0m[36m-- [0mLooking for include files CMAKE_HAVE_PTHREAD_H - found
+[0m[36m-- [0mLooking for pthread_create in pthreads
+[0m[36m-- [0mLooking for pthread_create in pthreads - not found
+[0m[36m-- [0mLooking for pthread_create in pthread
+[0m[36m-- [0mLooking for pthread_create in pthread - found
+[0m[36m-- [0mFound Threads:[33m TRUE 
+[0m[0m[36m-- [0mFound gtest sources under '/usr/src/gtest':[33m gtests will be built
+[0m[0m[36m-- [0mcatkin 0.5.89
+[0m[36m-- [0mUsing these message generators:[33m gencpp;genlisp;genpy
+[0m[0m[36m-- [0mvrep_skeleton_msg_and_srv:[33m 0 messages, 1 services
+[0m[0m[36m-- [0mConfiguring done
+[0m[36m-- [0mGenerating done
+[0m[36m-- [0mBuild files have been written to:[33m /home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv
+[0m[0m[[36mvrep_skeleton_msg_and_srv[0m] [32m<==[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv/build_env.sh /usr/bin/cmake /home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/src/vrep_skeleton_msg_and_srv -DCATKIN_DEVEL_PREFIX=/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/install[0m' finished with return code '[1m0[0m'[0m
+[[36mvrep_skeleton_msg_and_srv[0m] [1m[34m==>[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv/build_env.sh /usr/bin/make --jobserver-fds=3,4 -j[0m' [30m[1min[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv[0m'[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_py
+[0m[  0%] Built target std_msgs_generate_messages_py
+[35m[1mScanning dependencies of target std_msgs_generate_messages_lisp
+[0m[  0%] Built target std_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target std_msgs_generate_messages_cpp
+[0m[  0%] Built target std_msgs_generate_messages_cpp
+[35m[1mScanning dependencies of target vrep_skeleton_msg_and_srv_generate_messages_py
+[0m[ 25%] [34m[1mGenerating Python code from SRV vrep_skeleton_msg_and_srv/displayText
+[0m[ 50%] [34m[1mGenerating Python srv __init__.py for vrep_skeleton_msg_and_srv
+[0m[ 50%] Built target vrep_skeleton_msg_and_srv_generate_messages_py
+[35m[1mScanning dependencies of target vrep_skeleton_msg_and_srv_generate_messages_lisp
+[0m[ 75%] [34m[1mGenerating Lisp code from vrep_skeleton_msg_and_srv/displayText.srv
+[0m[ 75%] Built target vrep_skeleton_msg_and_srv_generate_messages_lisp
+[35m[1mScanning dependencies of target vrep_skeleton_msg_and_srv_generate_messages_cpp
+[0m[100%] [34m[1mGenerating C++ code from vrep_skeleton_msg_and_srv/displayText.srv
+[0m[100%] Built target vrep_skeleton_msg_and_srv_generate_messages_cpp
+[35m[1mScanning dependencies of target vrep_skeleton_msg_and_srv_generate_messages
+[0m[100%] Built target vrep_skeleton_msg_and_srv_generate_messages
+[[36mvrep_skeleton_msg_and_srv[0m] [32m<==[0m '[1m/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/build/vrep_skeleton_msg_and_srv/build_env.sh /usr/bin/make --jobserver-fds=3,4 -j[0m' finished with return code '[1m0[0m'[0m
