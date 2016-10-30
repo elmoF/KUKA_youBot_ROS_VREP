@@ -1,0 +1,17 @@
+digraph G {
+"map" -> "base_link"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.972 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "base_footprint"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.973 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "wheel_link_fl"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.973 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "wheel_link_bl"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.974 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "wheel_link_br"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.974 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "wheel_link_fr"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.974 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "arm_link_0"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.974 \nBuffer length: 4.476 sec\n"];
+"arm_link_0" -> "arm_link_1"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.975 \nBuffer length: 4.476 sec\n"];
+"arm_link_1" -> "arm_link_2"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.975 \nBuffer length: 4.476 sec\n"];
+"arm_link_2" -> "arm_link_3"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.975 \nBuffer length: 4.476 sec\n"];
+"arm_link_3" -> "arm_link_4"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.975 \nBuffer length: 4.476 sec\n"];
+"arm_link_4" -> "arm_link_5"[label="Broadcaster: /vrep\nAverage rate: 3.574 Hz\nMost recent transform: 3209985.976 \nBuffer length: 4.477 sec\n"];
+"arm_link_5" -> "gripper_finger_link_l"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.976 \nBuffer length: 4.476 sec\n"];
+"arm_link_5" -> "gripper_finger_link_r"[label="Broadcaster: /vrep\nAverage rate: 3.575 Hz\nMost recent transform: 3209985.976 \nBuffer length: 4.476 sec\n"];
+"base_link" -> "plate_link"[label="Broadcaster: /vrep\nAverage rate: 3.574 Hz\nMost recent transform: 3209985.977 \nBuffer length: 4.477 sec\n"];
+}

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/youbot/Simulation_Examples/Masterarbeit2/catkin_ws/install/setup.sh

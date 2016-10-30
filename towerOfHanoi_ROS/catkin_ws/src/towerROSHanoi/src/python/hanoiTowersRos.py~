@@ -1,0 +1,139 @@
+#!/usr/bin/env python
+# this python manage the tower of hanoi problem using ROS
+# created by Frederic Starnecker
+# Student of HTWG-University of applied science Constance
+# Master degree
+# Date 2016
+
+
+import std_msgs.msg
+import tf
+from tf import TransformListener
+import geometry_msgs.msg
+from geometry_msgs.msg import Twist
+import rospy
+import roslib
+
+#from vrep_common import simRosStartSimulation
+import math
+import time
+#import vrep
+import vrep_common
+
+#from simRosStartSimulation.srv import *
+from tf import transformations
+
+#def callback(data):
+#    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+
+# Param: listner all tfs, boxHandle searching
+def getBoxAdjustedMatrixAndFacingAngle(listener,boxHandle):
+   	
+   	# p2=simGetObjectPosition(boxHandle,-1)
+	t = listener.getLatestCommonTime(boxHandle, "/map")
+	position2, quaternion2 = listener.lookupTransform(boxHandle, "/map", t)
+	print position2
+	p2 = position2
+   	#p1=simGetObjectPosition(vehicleReference,-1)
+	t = listener.getLatestCommonTime("/base_link", "/map")
+	position1, quaternion1 = listener.lookupTransform("/base_link", "/map", t)
+	p1 = position1
+
+	#go on calulating the dirction and normalize
+	p=[p2[0]-p1[0],p2[1]-p1[1],p2[2]-p1[2]]
+	pl=math.sqrt(p[0]*p[0]+p[1]*p[1]+p[2]*p[2])
+	p[0]=p[0]/pl
+	p[1]=p[1]/pl
+	p[2]=p[2]/pl
+
+	#m=simGetObjectMatrix(boxHandle,-1)  or   m=GetObjectMatrix(boxHandle,"/map")
+	m = listener.fromTranslationRotation(position2,quaternion2)
+	matchingScore=0
+    	for i in xrange(0,2):
+        	v=[m[0][i],m[1][i],m[2][i]] # go x,y,z ache
+        	score=v[0]*p[0]+v[1]*p[1]+v[2]*p[2]
+        	if (abs(score)>matchingScore):
+           		s=1
+           	if (score<0):
+			 s=-1
+            	matchingScore=abs(score)
+            	bestMatch=[v[0]*s,v[1]*s,v[2]*s]
+        	
+    	
+   	angle=math.atan2(bestMatch[1],bestMatch[0])
+	print p2
+   	m = listener.fromTranslationRotation(p2,[0,0,angle,0])
+    	return m, angle-math.pi/2
+
+if __name__ == '__main__':
+    	print('Program started')
+	## Define Node and Topics give them time to get ready
+	rospy.init_node("hanoi")
+	fkikpub = rospy.Publisher("setFkIk",std_msgs.msg.String,queue_size = 1)
+	gripperPub = rospy.Publisher("gripper_controller/position_command",std_msgs.msg.String,queue_size = 1)
+	setTargetPub = rospy.Publisher("cmd_vel_SetTarget",std_msgs.msg.Int32MultiArray,queue_size =1)
+	cmd_vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
+	redBox1 = "BoxTF_red1"
+	tf_sub = TransformListener()
+	
+	time.sleep(1) #wait for node and topics to come up
+
+	# define some relative positions
+	pickup1={0,-14.52*math.pi/180,-70.27*math.pi/180,-95.27*math.pi/180,0*math.pi/180}
+	pickup2={0,-13.39*math.pi/180,-93.91*math.pi/180,-72.72*math.pi/180,90*math.pi/180}
+	pickup3={0,-14.52*math.pi/180,-70.27*math.pi/180,-95.27*math.pi/180,90*math.pi/180}
+	platformIntermediateDrop={0,16*math.pi/180,52*math.pi/180,73*math.pi/180,0*math.pi/180}
+	#platformDrop1={0,54.33*math.pi/180,32.88*math.pi/180,35.76*math.pi/180,0*math.pi/180}--{0,-0.4,0.2}
+	#platformDrop2={0,40.74*math.pi/180,45.81*math.pi/180,59.24*math.pi/180,0*math.pi/180}--{0,-0.32,0.2}
+	#platformDrop3={0,28.47*math.pi/180,55.09*math.pi/180,78.32*math.pi/180,0*math.pi/180}--{0,-0.24,0.2}
+
+	#define distances, height and speed
+	dist1=0.2
+	dropHeight1=0.035
+	dropHeight2=0.095
+	dropHeight3=0.155
+	ikSpeed={0.2,0.2,0.2,0.2}
+	ikAccel={0.1,0.1,0.1,0.1}
+	ikJerk={0.1,0.1,0.1,0.1}
+	fkSpeed={1,1,1,1,1}
+	fkAccel={0.6,0.6,0.6,0.6,0.6}
+	fkJerk={1,1,1,1,1}
+
+	#setGripperTargetMovingWithVehicle()
+	#setFkMode
+	fkikpub.publish("fk")
+	#openGripper
+	gripperPub.publish("open")
+	
+	# redBox first pickup:
+	#m,angle=getBoxAdjustedMatrixAndFacingAngle(tf_sub,redBox1)
+	#print m
+	#print '\n '
+	#print angle
+	#setTargetPub.publish(quaternion)
+	
+
+	# service test
+	rospy.wait_for_service("/vrep/simRosSetObjectPosition")
+	rospy.wait_for_service("/vrep/simRosGetObjectPose")
+	rospy.wait_for_service('/vrep/simRosStartSimulation')
+	test = rospy.ServiceProxy('/vrep/simRosStartSimulation',vrep_common.simRosStartSimulation)
+
+	try:
+		#handle = rospy.ServiceProxy("vrep/simRosGetObjectHandle","BoxTF_red1")
+		#result, pose = rospy.ServiceProxy("/vrep/simRosGetObjectPose",'redRectangle1',-1)
+		print pose
+		#set_result = rospy.ServiceProxy("/vrep/simRosSetObjectPose",pose)
+		#set_result = rospy.ServiceProxy("/vrep/simRosSetObjectPosition", "youBot_vehicleTargetPosition",-1,{3,2,0})
+       		
+    	except rospy.ServiceException, e:
+       		print "Service call failed: %s"%e
+
+	
+			
+	rospy.spin() # node needs to keep running, so the messages come through
+
+
+	print('Program ended')
+
+

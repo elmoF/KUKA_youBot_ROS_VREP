@@ -1,0 +1,47 @@
+[[36mvrep_ros_interface[0m] [1m[34m==>[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface/build_env.sh /usr/bin/make cmake_check_build_system[0m' [30m[1min[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface[0m'[0m
+-- Using CATKIN_DEVEL_PREFIX: /home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/devel
+-- Using CMAKE_PREFIX_PATH: /home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/devel;/opt/ros/hydro
+-- This workspace overlays: /home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/devel;/opt/ros/hydro
+-- Using PYTHON_EXECUTABLE: /usr/bin/python
+-- Python version: 2.7
+-- Using Debian Python package layout
+-- Using CATKIN_ENABLE_TESTING: ON
+-- Call enable_testing()
+-- Using CATKIN_TEST_RESULTS_DIR: /home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface/test_results
+-- Found gtest sources under '/usr/src/gtest': gtests will be built
+-- catkin 0.5.89
+-- Using these message generators: gencpp;genlisp;genpy
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface
+[[36mvrep_ros_interface[0m] [32m<==[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface/build_env.sh /usr/bin/make cmake_check_build_system[0m' finished with return code '[1m0[0m'[0m
+[[36mvrep_ros_interface[0m] [1m[34m==>[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface/build_env.sh /usr/bin/make --jobserver-fds=3,5 -j[0m' [30m[1min[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface[0m'[0m
+[  0%] [  0%] [  0%] Built target tf2_msgs_generate_messages_cpp
+Built target geometry_msgs_generate_messages_cpp
+Built target roscpp_generate_messages_cpp
+[  0%] Built target rosgraph_msgs_generate_messages_py
+[  0%] Built target tf2_msgs_generate_messages_py
+[  0%] Built target roscpp_generate_messages_lisp
+[  0%] [  0%] Built target tf_generate_messages_lisp
+Built target roscpp_generate_messages_py
+[  0%] Built target rosgraph_msgs_generate_messages_lisp
+[  0%] [  0%] Built target std_msgs_generate_messages_py
+Built target actionlib_msgs_generate_messages_cpp
+[  0%] Built target tf_generate_messages_py
+[  0%] [  0%] Built target std_msgs_generate_messages_lisp
+Built target std_msgs_generate_messages_cpp
+[  0%] Built target sensor_msgs_generate_messages_cpp
+[  0%] [  0%] Built target sensor_msgs_generate_messages_py
+Built target sensor_msgs_generate_messages_lisp
+[  0%] Built target rosgraph_msgs_generate_messages_cpp
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target tf_generate_messages_cpp
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] [  0%] Built target actionlib_generate_messages_cpp
+Built target actionlib_generate_messages_lisp
+[  0%] Built target actionlib_generate_messages_py
+[  0%] [  0%] Built target actionlib_msgs_generate_messages_py
+Built target actionlib_msgs_generate_messages_lisp
+[  0%] Built target tf2_msgs_generate_messages_lisp
+[100%] Built target v_repExtRosInterface
+[[36mvrep_ros_interface[0m] [32m<==[0m '[1m/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/build/vrep_ros_interface/build_env.sh /usr/bin/make --jobserver-fds=3,5 -j[0m' finished with return code '[1m0[0m'[0m

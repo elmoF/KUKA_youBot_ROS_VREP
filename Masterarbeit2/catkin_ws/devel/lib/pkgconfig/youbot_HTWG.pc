@@ -1,0 +1,8 @@
+prefix=/home/youbot/Simulation_Examples/Masterarbeit2/catkin_ws/devel
+
+Name: youbot_HTWG
+Description: Description of youbot_HTWG
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/youbot/Simulation_Examples/Masterarbeit2/catkin_ws/devel/lib 
+Requires: 

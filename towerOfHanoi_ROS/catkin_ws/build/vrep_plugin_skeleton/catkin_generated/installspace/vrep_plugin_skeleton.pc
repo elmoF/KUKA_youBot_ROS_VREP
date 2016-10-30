@@ -1,0 +1,8 @@
+prefix=/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/install
+
+Name: vrep_plugin_skeleton
+Description: Description of vrep_plugin_skeleton
+Version: 3.3.1
+Cflags: 
+Libs: -L/home/youbot/Simulation_Examples/towerOfHanoi_ROS/catkin_ws/install/lib 
+Requires: roscpp rosconsole std_msgs roslib roscpp rosconsole std_msgs
