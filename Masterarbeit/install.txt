@@ -1,0 +1,5 @@
+needs
+
+$ catkin build 
+
+in catkin_ws
