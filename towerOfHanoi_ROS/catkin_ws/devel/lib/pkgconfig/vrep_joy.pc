@@ -1,8 +1,0 @@
-prefix=/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/devel
-
-Name: vrep_joy
-Description: Description of vrep_joy
-Version: 3.3.1
-Cflags: 
-Libs: -L/home/youbot/Simulation_Examples/KUKA_youBot_ROS_VREP/towerOfHanoi_ROS/catkin_ws/devel/lib 
-Requires: roscpp joy
