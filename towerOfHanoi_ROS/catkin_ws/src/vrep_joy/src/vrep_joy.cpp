@@ -21,32 +21,32 @@
 
 class VrepJoy
 {
-	public:
-		VrepJoy();
+    public:
+        VrepJoy();
 
-	private:
-		void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
-		ros::NodeHandle nh_;
-		ros::Subscriber joy_sub_;
-		ros::Publisher  vrep_joy_pub_;
+    private:
+        void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
+        ros::NodeHandle nh_;
+        ros::Subscriber joy_sub_;
+        ros::Publisher  vrep_joy_pub_;
 };
 
 VrepJoy::VrepJoy()
 {
-	joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy",10,&VrepJoy::joyCallback, this);
-	vrep_joy_pub_ = nh_.advertise<sensor_msgs::Joy>("vrep/joy",1);
+    joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy",10,&VrepJoy::joyCallback, this);
+    vrep_joy_pub_ = nh_.advertise<sensor_msgs::Joy>("vrep/joy",1);
 }
 
 void VrepJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
-	vrep_joy_pub_.publish(joy);
+    vrep_joy_pub_.publish(joy);
 }
 
 int main(int argc, char** argv)
 {
-	ros::init(argc,argv, "vrep_joy");
-	VrepJoy vrep_joy;
-	ros::spin();
+    ros::init(argc,argv, "vrep_joy");
+    VrepJoy vrep_joy;
+    ros::spin();
 }
 
 

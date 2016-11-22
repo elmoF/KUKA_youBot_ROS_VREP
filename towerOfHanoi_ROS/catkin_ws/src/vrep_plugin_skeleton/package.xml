@@ -2,7 +2,7 @@
   <name>vrep_plugin_skeleton</name>
   <description>V-REP plugin Skeleton</description>
   <maintainer email="marc@coppeliarobotics.com">Marc</maintainer>
-  <version>3.3.1</version>
+  <version>3.1.2</version>
   <author>Marc</author>
   <license>GPLv3</license>
   <url>http://www.coppeliarobotics.com</url>

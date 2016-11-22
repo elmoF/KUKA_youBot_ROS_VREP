@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.1 Rev1 on May 17th 2016
+// This file was automatically created for V-REP release V3.3.2 on August 29th 2016
 
 #ifndef VREP_SUBSCRIBER_H
 #define VREP_SUBSCRIBER_H
@@ -61,82 +61,82 @@
 /*
 struct SJointTrajectory
 {
-	std::vector<std::string> jointNames;
-	std::vector<SJointTrajectoryPoint> points
+    std::vector<std::string> jointNames;
+    std::vector<SJointTrajectoryPoint> points
 };
 
 struct SJointTrajectoryPoint
 {
-	std::vector<double> positions;
-	std::vector<double> velocities;
-	std::vector<double> accelerations;
-	std::vector<double> effort;
-	float timeFromStart;
+    std::vector<double> positions;
+    std::vector<double> velocities;
+    std::vector<double> accelerations;
+    std::vector<double> effort;
+    float timeFromStart;
 };
 */
 
 class CSubscriberData
 {
 public:
-	CSubscriberData(ros::NodeHandle* node,const char* _topicName,int queueSize,int _streamCmd,int _auxInt1,int _auxInt2,const char* _auxString,int _callbackTag_before,int _callbackTag_after,image_transport::ImageTransport* images_streamer[1],int& imgStreamerCnt);
-	virtual ~CSubscriberData();
+    CSubscriberData(ros::NodeHandle* node,const char* _topicName,int queueSize,int _streamCmd,int _auxInt1,int _auxInt2,const char* _auxString,int _callbackTag_before,int _callbackTag_after,image_transport::ImageTransport* images_streamer[1],int& imgStreamerCnt);
+    virtual ~CSubscriberData();
 
-	bool getIsValid();
-	void setSubscriberID(int id);
-	int getSubscriberID();
-	void shutDownSubscriber();
+    bool getIsValid();
+    void setSubscriberID(int id);
+    int getSubscriberID();
+    void shutDownSubscriber();
 
 protected:
-	bool _handleGeneralCallback_before();
-	void _handleGeneralCallback_after();
-	void shutDownGeneralSubscriber();
-	void shutDownImageSubscriber();
+    bool _handleGeneralCallback_before();
+    void _handleGeneralCallback_after();
+    void shutDownGeneralSubscriber();
+    void shutDownImageSubscriber();
 
-	bool isValid;
-	int cmdID;
-	int auxInt1;
-	int auxInt2;
-	int subscriberID;
-	std::string auxStr;
-	int callbackTag_before;
-	int callbackTag_after;
-	std::string topicName;
-	ros::Subscriber generalSubscriber;
-	image_transport::Subscriber imageSubscriber;
+    bool isValid;
+    int cmdID;
+    int auxInt1;
+    int auxInt2;
+    int subscriberID;
+    std::string auxStr;
+    int callbackTag_before;
+    int callbackTag_after;
+    std::string topicName;
+    ros::Subscriber generalSubscriber;
+    image_transport::Subscriber imageSubscriber;
 
 public:
-	void addStatusbarMessageCallback(const std_msgs::String::ConstPtr& msg);
-	void auxiliaryConsolePrintCallback(const std_msgs::String::ConstPtr& txt);
-	void clearFloatSignalCallback(const std_msgs::UInt8::ConstPtr& options);
-	void clearIntegerSignalCallback(const std_msgs::UInt8::ConstPtr& options);
-	void clearStringSignalCallback(const std_msgs::UInt8::ConstPtr& options);
-	void setArrayParameterCallback(const geometry_msgs::Point32::ConstPtr& param);
-	void setBooleanParameterCallback(const std_msgs::UInt8::ConstPtr& param);
-	void setFloatingParameterCallback(const std_msgs::Float32::ConstPtr& param);
-	void setIntegerParameterCallback(const std_msgs::Int32::ConstPtr& param);
-	void setFloatSignalCallback(const std_msgs::Float32::ConstPtr& sig);
-	void setIntegerSignalCallback(const std_msgs::Int32::ConstPtr& sig);
-	void setJointForceCallback(const std_msgs::Float64::ConstPtr& force);
-	void setJointPositionCallback(const std_msgs::Float64::ConstPtr& pos);
-	void setJointTargetPositionCallback(const std_msgs::Float64::ConstPtr& pos);
-	void setJointTargetVelocityCallback(const std_msgs::Float64::ConstPtr& vel);
-	void setTwistCommandCallback(const geometry_msgs::Twist::ConstPtr& vel);
-	void setObjectFloatParameterCallback(const std_msgs::Float32::ConstPtr& param);
-	void setObjectIntParameterCallback(const std_msgs::Int32::ConstPtr& param);
-	void setObjectPoseCallback(const geometry_msgs::PoseStamped::ConstPtr& pose);
-	void setObjectPositionCallback(const geometry_msgs::Point::ConstPtr& pos);
-	void setObjectQuaternionCallback(const geometry_msgs::Quaternion::ConstPtr& quaternion);
-	void setObjectSelectionCallback(const std_msgs::Int32MultiArray::ConstPtr& objHandles);
-	void setStringSignalCallback(const std_msgs::String::ConstPtr& sig);
-	void appendStringSignalCallback(const std_msgs::String::ConstPtr& sig);
-	void setUIButtonLabelCallback(const std_msgs::String::ConstPtr& label);
-	void setUIButtonPropertyCallback(const std_msgs::Int32::ConstPtr& prop);
-	void setUISlider(const std_msgs::Int32::ConstPtr& pos);
-	void setVisionSensorImageCallback(const sensor_msgs::Image::ConstPtr& image);
-	void setJoySensorCallback(const sensor_msgs::Joy::ConstPtr& joyPacket); 
-	void setJointStateCallback(const vrep_common::JointSetStateData::ConstPtr& data);
-	void callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data);
-//	void setJointTrajectoryCallback(const trajectory_msgs::JointTrajectory::ConstPtr& data);
+    void addStatusbarMessageCallback(const std_msgs::String::ConstPtr& msg);
+    void auxiliaryConsolePrintCallback(const std_msgs::String::ConstPtr& txt);
+    void clearFloatSignalCallback(const std_msgs::UInt8::ConstPtr& options);
+    void clearIntegerSignalCallback(const std_msgs::UInt8::ConstPtr& options);
+    void clearStringSignalCallback(const std_msgs::UInt8::ConstPtr& options);
+    void setArrayParameterCallback(const geometry_msgs::Point32::ConstPtr& param);
+    void setBooleanParameterCallback(const std_msgs::UInt8::ConstPtr& param);
+    void setFloatingParameterCallback(const std_msgs::Float32::ConstPtr& param);
+    void setIntegerParameterCallback(const std_msgs::Int32::ConstPtr& param);
+    void setFloatSignalCallback(const std_msgs::Float32::ConstPtr& sig);
+    void setIntegerSignalCallback(const std_msgs::Int32::ConstPtr& sig);
+    void setJointForceCallback(const std_msgs::Float64::ConstPtr& force);
+    void setJointPositionCallback(const std_msgs::Float64::ConstPtr& pos);
+    void setJointTargetPositionCallback(const std_msgs::Float64::ConstPtr& pos);
+    void setJointTargetVelocityCallback(const std_msgs::Float64::ConstPtr& vel);
+    void setTwistCommandCallback(const geometry_msgs::Twist::ConstPtr& vel);
+    void setObjectFloatParameterCallback(const std_msgs::Float32::ConstPtr& param);
+    void setObjectIntParameterCallback(const std_msgs::Int32::ConstPtr& param);
+    void setObjectPoseCallback(const geometry_msgs::PoseStamped::ConstPtr& pose);
+    void setObjectPositionCallback(const geometry_msgs::Point::ConstPtr& pos);
+    void setObjectQuaternionCallback(const geometry_msgs::Quaternion::ConstPtr& quaternion);
+    void setObjectSelectionCallback(const std_msgs::Int32MultiArray::ConstPtr& objHandles);
+    void setStringSignalCallback(const std_msgs::String::ConstPtr& sig);
+    void appendStringSignalCallback(const std_msgs::String::ConstPtr& sig);
+    void setUIButtonLabelCallback(const std_msgs::String::ConstPtr& label);
+    void setUIButtonPropertyCallback(const std_msgs::Int32::ConstPtr& prop);
+    void setUISlider(const std_msgs::Int32::ConstPtr& pos);
+    void setVisionSensorImageCallback(const sensor_msgs::Image::ConstPtr& image);
+    void setJoySensorCallback(const sensor_msgs::Joy::ConstPtr& joyPacket); 
+    void setJointStateCallback(const vrep_common::JointSetStateData::ConstPtr& data);
+    void callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data);
+//  void setJointTrajectoryCallback(const trajectory_msgs::JointTrajectory::ConstPtr& data);
 };
 
 #endif

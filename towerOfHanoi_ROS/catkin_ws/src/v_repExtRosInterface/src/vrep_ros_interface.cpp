@@ -444,6 +444,71 @@ void imageTransportPublish(SScriptCallBack *p, const char *cmd, imageTransportPu
     publisherProxy->imageTransportPublisher.publish(image_msg);
 }
 
+void getTime(SScriptCallBack *p, const char *cmd, getTime_in *in, getTime_out *out)
+{
+    if(in->flag == 0)
+        out->time = ros::Time::now().toSec();
+}
+
+void getParamString(SScriptCallBack *p, const char *cmd, getParamString_in *in, getParamString_out *out)
+{
+    out->value = in->defaultValue;
+    out->exists = ros::param::get(in->name, out->value);
+}
+
+void getParamInt(SScriptCallBack *p, const char *cmd, getParamInt_in *in, getParamInt_out *out)
+{
+    out->value = in->defaultValue;
+    out->exists = ros::param::get(in->name, out->value);
+}
+
+void getParamDouble(SScriptCallBack *p, const char *cmd, getParamDouble_in *in, getParamDouble_out *out)
+{
+    out->value = in->defaultValue;
+    out->exists = ros::param::get(in->name, out->value);
+}
+
+void getParamBool(SScriptCallBack *p, const char *cmd, getParamBool_in *in, getParamBool_out *out)
+{
+    out->value = in->defaultValue;
+    out->exists = ros::param::get(in->name, out->value);
+}
+
+void setParamString(SScriptCallBack *p, const char *cmd, setParamString_in *in, setParamString_out *out)
+{
+    ros::param::set(in->name, in->value);
+}
+
+void setParamInt(SScriptCallBack *p, const char *cmd, setParamInt_in *in, setParamInt_out *out)
+{
+    ros::param::set(in->name, in->value);
+}
+
+void setParamDouble(SScriptCallBack *p, const char *cmd, setParamDouble_in *in, setParamDouble_out *out)
+{
+    ros::param::set(in->name, in->value);
+}
+
+void setParamBool(SScriptCallBack *p, const char *cmd, setParamBool_in *in, setParamBool_out *out)
+{
+    ros::param::set(in->name, in->value);
+}
+
+void hasParam(SScriptCallBack *p, const char *cmd, hasParam_in *in, hasParam_out *out)
+{
+    out->exists = ros::param::has(in->name);
+}
+
+void deleteParam(SScriptCallBack *p, const char *cmd, deleteParam_in *in, deleteParam_out *out)
+{
+    ros::param::del(in->name);
+}
+
+void searchParam(SScriptCallBack *p, const char *cmd, searchParam_in *in, searchParam_out *out)
+{
+    out->found = ros::param::search(in->name, out->name);
+}
+
 bool initialize()
 {
     int argc = 0;
@@ -627,44 +692,48 @@ VREP_DLLEXPORT void v_repEnd()
     unloadVrepLibrary(vrepLib); // release the library
 }
 
-VREP_DLLEXPORT void* v_repMessage(int message,int* auxiliaryData,void* customData,int* replyData)
-{ 
-    static int previousStopSimulationRequestCounter=-1;
+VREP_DLLEXPORT void * v_repMessage(int message, int *auxiliaryData, void *customData, int *replyData)
+{
+    static int previousStopSimulationRequestCounter = -1;
     int errorModeSaved;
-    simGetIntegerParameter(sim_intparam_error_report_mode,&errorModeSaved);
-    simSetIntegerParameter(sim_intparam_error_report_mode,sim_api_errormessage_ignore);
+    simGetIntegerParameter(sim_intparam_error_report_mode, &errorModeSaved);
+    simSetIntegerParameter(sim_intparam_error_report_mode, sim_api_errormessage_ignore);
     void* retVal=NULL;
 
-    if (message==sim_message_eventcallback_instancepass)
+    if(message == sim_message_eventcallback_instancepass)
+    {
         ros::spinOnce();
+    }
 
-    if (message==sim_message_eventcallback_mainscriptabouttobecalled)
+    if(message == sim_message_eventcallback_mainscriptabouttobecalled)
     {
         int stopSimulationRequestCounter;
-        simGetIntegerParameter(sim_intparam_stop_request_counter,&stopSimulationRequestCounter);
-        simBool doNotRun=simGetBoolParameter(sim_boolparam_rosinterface_donotrunmainscript);
-        if (doNotRun>0)
+        simGetIntegerParameter(sim_intparam_stop_request_counter, &stopSimulationRequestCounter);
+        simBool doNotRun = simGetBoolParameter(sim_boolparam_rosinterface_donotrunmainscript);
+        if(doNotRun>0)
         {
-            if (previousStopSimulationRequestCounter==-1)
-                previousStopSimulationRequestCounter=stopSimulationRequestCounter;
-            if (previousStopSimulationRequestCounter==stopSimulationRequestCounter)
-                replyData[0]=0; // this tells V-REP that we don't wanna execute the main script
+            if(previousStopSimulationRequestCounter == -1)
+                previousStopSimulationRequestCounter = stopSimulationRequestCounter;
+            if(previousStopSimulationRequestCounter == stopSimulationRequestCounter)
+                replyData[0] = 0; // this tells V-REP that we don't wanna execute the main script
         }
         else
             previousStopSimulationRequestCounter=-1;
     }
 
-    if (message==sim_message_eventcallback_simulationabouttostart)
+    if(message == sim_message_eventcallback_simulationabouttostart)
+    {
         previousStopSimulationRequestCounter=-1;
+    }
 
-    if (message==sim_message_eventcallback_simulationended)
-    { 
+    if(message == sim_message_eventcallback_simulationended)
+    {
         // Simulation just ended
         shutdownTransientProxies(NULL /* XXX: which SScriptCallBack struct? */);
     }
 
-    simSetIntegerParameter(sim_intparam_error_report_mode,errorModeSaved); // restore previous settings
+    // restore previous settings
+    simSetIntegerParameter(sim_intparam_error_report_mode, errorModeSaved); 
     return retVal;
 }
-
 

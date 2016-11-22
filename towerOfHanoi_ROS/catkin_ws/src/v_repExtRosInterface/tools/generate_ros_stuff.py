@@ -1,11 +1,8 @@
 from sys import argv, exit, stderr
 import os
 import re
-import subprocess
-
-# used to resolve messages specified without a package name
-# name -> pkg/name
-resolve_msg = {}
+import rospkg
+import rosmsg
 
 def is_identifier(s):
     return re.match('^[a-zA-Z_][a-zA-Z0-9_]*$', s)
@@ -44,7 +41,6 @@ class TypeSpec:
             if len(m.group(2)) > 0:
                 self.array_size = int(m.group(2))
         # perform substitutions:
-        s = resolve_msg.get(s, s)
         if s in self.deprecated_builtins: s = self.deprecated_builtins[s]
         # check builtins:
         self.builtin = s in self.ctype_builtin
@@ -84,9 +80,9 @@ def get_fields(lines):
     fields = {}
 
     for ln in lines:
-        if '#' in ln:
-            # strip comments
-            ln = ln[:ln.find('#')].strip()
+        if ln.startswith('  '):
+            # ignore expansions of nested types
+            continue
 
         if ln == '':
             # ignore empty lines
@@ -112,20 +108,18 @@ def get_fields(lines):
     return fields
 
 # parse msg definition
-def get_msg_fields(msg_name):
-    with open(os.devnull, 'w') as fnull:
-        lines = [ln.strip() for ln in subprocess.check_output(['rosmsg', 'show', '-r', msg_name], stderr=fnull).split('\n')]
-        return get_fields(lines)
+def get_msg_fields(msg_name, rospack=None):
+    lines = rosmsg.get_msg_text(msg_name, False, rospack).splitlines()
+    return get_fields(lines)
 
 # parse srv definition
-def get_srv_fields(srv_name):
-    with open(os.devnull, 'w') as fnull:
-        lines = [ln.strip() for ln in subprocess.check_output(['rossrv', 'show', '-r', srv_name], stderr=fnull).split('\n')]
-        sep = '---'
-        if sep not in lines:
-            raise ValueError('bad srv definition')
-        i = lines.index(sep)
-        return get_fields(lines[:i]), get_fields(lines[i+1:])
+def get_srv_fields(srv_name, rospack=None):
+    lines = rosmsg.get_srv_text(srv_name, False, rospack).splitlines()
+    sep = '---'
+    if sep not in lines:
+        raise ValueError('bad srv definition')
+    i = lines.index(sep)
+    return get_fields(lines[:i]), get_fields(lines[i+1:])
 
 def generate_msg_wr_h(gt, fields, d, f):
     s = '''
@@ -300,6 +294,7 @@ void read__{norm}(int stack, {ctype} *msg, const ReadOptions *opt)
                             throw exception("fast_write_type reader exception #1");
                         {reserve_space}
                         simGetStack{fast_write_type}TableE(stack, &(msg->{n}[0]), sz);
+                        simPopStackItemE(stack, 1);
                     }}
                     catch(exception& ex)
                     {{
@@ -345,6 +340,7 @@ void read__{norm}(int stack, {ctype} *msg, const ReadOptions *opt)
                                 throw exception("fast_write_type uint8[] reader exception #1");
                             {reserve_space}
                             simGetStackUInt8TableE(stack, &(msg->{n}[0]), sz);
+                            simPopStackItemE(stack, 1);
 			}}
                     }}
                     catch(exception& ex)
@@ -514,7 +510,6 @@ def generate_srv_call(gt, fields_in, fields_out, d, f):
         if(serviceClientProxy->client.call(srv))
         {{
             write__{norm}Response(srv.response, p->stackID, &(serviceClientProxy->wr_opt));
-            out->result = true;
         }}
         else
         {{
@@ -593,18 +588,21 @@ def main(argc, argv):
     services_file = argv[2]
     output_dir = argv[3]
 
-    # populate resolve_msg dictionary
+    # populate msg list
+    msg_list = set()
     with open(messages_file) as f:
         for l in f.readlines():
             l = l.strip()
-            pkg, n = l.split('/')
-            resolve_msg[n] = l
+            if not l: continue
+            msg_list.add(l)
 
     # and srv list
     srv_list = set()
     with open(services_file) as f:
         for l in f.readlines():
-            srv_list.add(l.strip())
+            l = l.strip()
+            if not l: continue
+            srv_list.add(l)
 
     f_msg_cpp = open(output_dir + '/ros_msg_io.cpp', 'w')
     f_msg_h = open(output_dir + '/ros_msg_io.h', 'w')
@@ -630,7 +628,7 @@ def main(argc, argv):
 #include <ros_msg_builtin_io.h>
 #include <vrep_ros_interface.h>
 
-''') 
+''')
     f_srv_cpp.write('''#include <ros_msg_io.h>
 #include <ros_srv_io.h>
 #include <v_repLib.h>
@@ -643,17 +641,20 @@ def main(argc, argv):
 #include <ros/ros.h>
 #include <vrep_ros_interface.h>
 
-''') 
+''')
 
+    # Utility class used by rosmsg functions
+    # Initializing it in advance yields better performance
+    rospack = rospkg.RosPack()
 
     # get msg definitions
     print('Getting msg definitions...')
     msg_fields = {}
-    for msg in sorted(set(resolve_msg.values())):
+    for msg in sorted(msg_list):
         print('Getting definition of msg %s...' % msg)
         try:
-            msg_fields[msg] = get_msg_fields(msg)
-        except subprocess.CalledProcessError:
+            msg_fields[msg] = get_msg_fields(msg, rospack)
+        except rosmsg.ROSMsgException:
             print('WARNING: bad msg: %s' % msg)
             continue
 
@@ -663,8 +664,8 @@ def main(argc, argv):
     for srv in sorted(srv_list):
         print('Getting definition of srv %s...' % srv)
         try:
-            srv_fields[srv] = get_srv_fields(srv)
-        except subprocess.CalledProcessError:
+            srv_fields[srv] = get_srv_fields(srv, rospack)
+        except rosmsg.ROSMsgException:
             print('WARNING: bad srv: %s' % srv)
             continue
 

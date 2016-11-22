@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.1 Rev1 on May 17th 2016
+// This file was automatically created for V-REP release V3.3.2 on August 29th 2016
 
 #ifndef V_REPEXTROS_H
 #define V_REPEXTROS_H

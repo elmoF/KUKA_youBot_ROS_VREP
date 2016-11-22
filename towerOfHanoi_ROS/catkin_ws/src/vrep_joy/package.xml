@@ -2,7 +2,7 @@
   <name>vrep_joy</name>
   <description>vrep_joy</description>
   <maintainer email="marc@coppeliarobotics.com">Marc</maintainer>
-  <version>3.3.1</version>
+  <version>3.1.2</version>
   <author>formica</author>
   <license>BSD</license>
   <url>http://ros.org/wiki/vrep_joy</url>

@@ -11,10 +11,12 @@ catkin_package(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+link_directories("/opt/ros/fuerte/lib")
 link_directories("/opt/ros/groovy/lib")
 link_directories("/opt/ros/hydro/lib")
 link_directories("/opt/ros/indigo/lib")
 link_directories("/opt/ros/jade/lib")
+link_directories("/opt/ros/kinetic/lib")
 
 add_library(v_repExtRos src/vrep_plugin.cpp src/scriptFunctionData.cpp src/scriptFunctionDataItem.cpp src/v_repLib.cpp src/ROS_server.cpp src/vrepSubscriber.cpp)
 

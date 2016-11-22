@@ -2,7 +2,7 @@
   <name>vrep_plugin</name>
   <description>V-REP plugin for ROS interface</description>
   <maintainer email="marc@coppeliarobotics.com">Marc</maintainer>
-  <version>3.3.1</version>
+  <version>3.3.0</version>
   <author>Marc</author>
   <license>GPLv3</license>
   <url>http://www.coppeliarobotics.com</url>

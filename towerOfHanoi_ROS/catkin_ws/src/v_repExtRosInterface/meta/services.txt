@@ -4,4 +4,3 @@ roscpp/GetLoggers
 roscpp/SetLoggerLevel
 std_srvs/Empty
 std_srvs/Trigger
-v_repExtRosInterface/setTargetPosition

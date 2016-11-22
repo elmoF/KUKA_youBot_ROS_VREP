@@ -27,7 +27,7 @@
 // along with V-REP.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.1 Rev1 on May 17th 2016
+// This file was automatically created for V-REP release V3.3.2 on August 29th 2016
 
 #if !defined(V_REPTYPES_INCLUDED_)
 #define V_REPTYPES_INCLUDED_
@@ -45,34 +45,34 @@ typedef unsigned long long int simUInt64;
 
 struct SScriptCallBack
 {
-	simInt objectID;
-	simInt scriptID;
-	simInt stackID;
-	simChar waitUntilZero;
-	simChar* raiseErrorWithMessage;
+    simInt objectID;
+    simInt scriptID;
+    simInt stackID;
+    simChar waitUntilZero;
+    simChar* raiseErrorWithMessage;
 };
 
 struct SLuaCallBack
 {
-	simInt objectID;
-	simBool* inputBool;
-	simInt* inputInt;
-	simFloat* inputFloat;
-	simChar* inputChar;
-	simInt inputArgCount;
-	simInt* inputArgTypeAndSize;
-	simBool* outputBool;
-	simInt* outputInt;
-	simFloat* outputFloat;
-	simChar* outputChar;
-	simInt outputArgCount;
-	simInt* outputArgTypeAndSize;
-	simChar waitUntilZero;
-	simChar* inputCharBuff;
-	simChar* outputCharBuff;
-	simInt scriptID;
-	simDouble* inputDouble;
-	simDouble* outputDouble;
+    simInt objectID;
+    simBool* inputBool;
+    simInt* inputInt;
+    simFloat* inputFloat;
+    simChar* inputChar;
+    simInt inputArgCount;
+    simInt* inputArgTypeAndSize;
+    simBool* outputBool;
+    simInt* outputInt;
+    simFloat* outputFloat;
+    simChar* outputChar;
+    simInt outputArgCount;
+    simInt* outputArgTypeAndSize;
+    simChar waitUntilZero;
+    simChar* inputCharBuff;
+    simChar* outputCharBuff;
+    simInt scriptID;
+    simDouble* inputDouble;
+    simDouble* outputDouble;
 };
 
 typedef int (*contactCallback)(int,int,int,int*,float*);

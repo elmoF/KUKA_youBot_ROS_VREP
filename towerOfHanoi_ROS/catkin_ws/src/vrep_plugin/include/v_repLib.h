@@ -27,7 +27,7 @@
 // along with V-REP.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.1 Rev1 on May 17th 2016
+// This file was automatically created for V-REP release V3.3.2 on August 29th 2016
 
 // Use this header to dynamically load and bind v_rep.dll and its functions (call loadVrepLibrary and unloadVrepLibrary)
 
@@ -38,19 +38,19 @@
 #include "v_repTypes.h"
 
 #ifdef QT_FRAMEWORK
-	#include <QLibrary>
-	#define LIBRARY QLibrary*
-	#define __cdecl
-	#define FARPROC void*
+    #include <QLibrary>
+    #define LIBRARY QLibrary*
+    #define __cdecl
+    #define FARPROC void*
 #else
-	#ifdef _WIN32
-		#include <Windows.h>
-		#define LIBRARY HINSTANCE
-	#elif defined (__linux) || defined (__APPLE__)
-		#define __cdecl
-		#define FARPROC void*
-		#define LIBRARY void*
-	#endif
+    #ifdef _WIN32
+        #include <Windows.h>
+        #define LIBRARY HINSTANCE
+    #elif defined (__linux) || defined (__APPLE__)
+        #define __cdecl
+        #define FARPROC void*
+        #define LIBRARY void*
+    #endif
 #endif // QT_FRAMEWORK
 
 int getVrepProcAddresses(LIBRARY lib);
@@ -494,16 +494,19 @@ typedef simInt (__cdecl *ptrSimSetPointCloudOptions)(simInt pointCloudHandle,sim
 typedef simInt (__cdecl *ptrSimGetPointCloudOptions)(simInt pointCloudHandle,simFloat* maxVoxelSize,simInt* maxPtCntPerVoxel,simInt* options,simFloat* pointSize,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimInsertVoxelsIntoOctree)(simInt octreeHandle,simInt options,const simFloat* pts,simInt ptCnt,const simUChar* color,const simUInt* tag,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimRemoveVoxelsFromOctree)(simInt octreeHandle,simInt options,const simFloat* pts,simInt ptCnt,simVoid* reserved);
-typedef simInt (__cdecl *ptrSimInsertPointsIntoPointCloud)(simInt pointCloudHandle,simInt options,const simFloat* pts,simInt ptCnt,const simUChar* color,simVoid* reserved);
+typedef simInt (__cdecl *ptrSimInsertPointsIntoPointCloud)(simInt pointCloudHandle,simInt options,const simFloat* pts,simInt ptCnt,const simUChar* color,simVoid* optionalValues);
 typedef simInt (__cdecl *ptrSimRemovePointsFromPointCloud)(simInt pointCloudHandle,simInt options,const simFloat* pts,simInt ptCnt,simFloat tolerance,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimIntersectPointsWithPointCloud)(simInt pointCloudHandle,simInt options,const simFloat* pts,simInt ptCnt,simFloat tolerance,simVoid* reserved);
 typedef const float* (__cdecl *ptrSimGetOctreeVoxels)(simInt octreeHandle,simInt* ptCnt,simVoid* reserved);
 typedef const float* (__cdecl *ptrSimGetPointCloudPoints)(simInt pointCloudHandle,simInt* ptCnt,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimInsertObjectIntoOctree)(simInt octreeHandle,simInt objectHandle,simInt options,const simUChar* color,simUInt tag,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimSubtractObjectFromOctree)(simInt octreeHandle,simInt objectHandle,simInt options,simVoid* reserved);
-typedef simInt (__cdecl *ptrSimInsertObjectIntoPointCloud)(simInt pointCloudHandle,simInt objectHandle,simInt options,simFloat gridSize,const simUChar* color,simVoid* reserved);
+typedef simInt (__cdecl *ptrSimInsertObjectIntoPointCloud)(simInt pointCloudHandle,simInt objectHandle,simInt options,simFloat gridSize,const simUChar* color,simVoid* optionalValues);
 typedef simInt (__cdecl *ptrSimSubtractObjectFromPointCloud)(simInt pointCloudHandle,simInt objectHandle,simInt options,simFloat tolerance,simVoid* reserved);
 typedef simInt (__cdecl *ptrSimCheckOctreePointOccupancy)(simInt octreeHandle,simInt options,const simFloat* points,simInt ptCnt,simUInt* tag,simUInt64* location,simVoid* reserved);
+typedef simChar* (__cdecl *ptrSimOpenTextEditor)(const simChar* initText,const simChar* xml,simVoid* reserved);
+typedef simChar* (__cdecl *ptrSimPackTable)(simInt stackHandle,simInt* bufferSize);
+typedef simInt (__cdecl *ptrSimUnpackTable)(simInt stackHandle,const simChar* buffer,simInt bufferSize);
 
 
 
@@ -1043,6 +1046,9 @@ extern ptrSimSubtractObjectFromOctree simSubtractObjectFromOctree;
 extern ptrSimInsertObjectIntoPointCloud simInsertObjectIntoPointCloud;
 extern ptrSimSubtractObjectFromPointCloud simSubtractObjectFromPointCloud;
 extern ptrSimCheckOctreePointOccupancy simCheckOctreePointOccupancy;
+extern ptrSimOpenTextEditor simOpenTextEditor;
+extern ptrSimPackTable simPackTable;
+extern ptrSimUnpackTable simUnpackTable;
 
 
 extern ptr_simGetContactCallbackCount _simGetContactCallbackCount;

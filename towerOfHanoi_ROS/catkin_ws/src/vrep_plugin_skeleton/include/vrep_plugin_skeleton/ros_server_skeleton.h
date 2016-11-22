@@ -12,7 +12,7 @@
 // You are free to use/modify/distribute this file for whatever purpose!
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.1 Rev1 on May 17th 2016
+// This file was automatically created for V-REP release V3.3.2 on August 29th 2016
 
 #ifndef ROS_SERVER_H
 #define ROS_SERVER_H
@@ -26,34 +26,34 @@
 
 class ROS_server
 {
-	public:
-		static bool initialize();
-		static void shutDown();
+    public:
+        static bool initialize();
+        static void shutDown();
 
-		static void instancePass();
-		static void mainScriptAboutToBeCalled();
+        static void instancePass();
+        static void mainScriptAboutToBeCalled();
 
-		static void simulationAboutToStart();
-		static void simulationEnded();
+        static void simulationAboutToStart();
+        static void simulationEnded();
 
-	private:
-		ROS_server() {}; 
-		
-		static ros::NodeHandle* node;
+    private:
+        ROS_server() {}; 
+        
+        static ros::NodeHandle* node;
 
-		static void spinOnce();
+        static void spinOnce();
 
-		// Services:
-		static bool displayText_service(vrep_skeleton_msg_and_srv::displayText::Request &req,vrep_skeleton_msg_and_srv::displayText::Response &res);
-		static ros::ServiceServer displayText_server;
+        // Services:
+        static bool displayText_service(vrep_skeleton_msg_and_srv::displayText::Request &req,vrep_skeleton_msg_and_srv::displayText::Response &res);
+        static ros::ServiceServer displayText_server;
 
-		// Publishers:
-		static void streamAllData();
-		static ros::Publisher objectCount_publisher;
+        // Publishers:
+        static void streamAllData();
+        static ros::Publisher objectCount_publisher;
 
-		// Subscribers:
-		static void addStatusbarMessage_callback(const std_msgs::String::ConstPtr& msg);
-		static ros::Subscriber addStatusBarMessage_subscriber;
+        // Subscribers:
+        static void addStatusbarMessage_callback(const std_msgs::String::ConstPtr& msg);
+        static ros::Subscriber addStatusBarMessage_subscriber;
 };
 
 #endif
