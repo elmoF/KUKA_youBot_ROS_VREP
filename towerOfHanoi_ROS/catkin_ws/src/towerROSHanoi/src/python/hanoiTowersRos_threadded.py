@@ -121,27 +121,36 @@ def waitToReachvehicleTargetNamePositionAndOrientation(listener,vehicleTargetNam
         pError=math.sqrt(p[0]*p[0]+p[1]*p[1])
         
         oError=abs(o3[2])
+    print '\n\nvehicle reached Target'
     time.sleep(2)
 
 def waitToReachGripperTarger(listener,Target1Name, gripperTip):
     pError =oError =999999999
+    timeInterrupt =  time.clock() + 0.6 * 6
     print 'wait for gripper to reach target\n'
-    while ((pError>0.001)and(oError>0.123)) :
-        
-        time.sleep(0.3)
-        #if type(Target1Name) != str:
+    if type(Target1Name) == str:
         p1,o1=getListenerPose(listener,Target1Name,"map")
+    else :
+        p1 = Target1Name
+        
+    while ((pError>0.001)and(oError>0.123) and (timeInterrupt- time.clock() > 0)) :
+        print 'wait for gripper:',timeInterrupt- time.clock(),'\n'
+        time.sleep(0.3)
+
         p2,o2=getListenerPose(listener,gripperTip,"map")
         print 'p1: ',p1
         print 'p2: ',p2
-        p3,o3 = getListenerPose(listener,gripperTip,Target1Name)
-        print 'p3: ',p3,'\n'
+        if type(Target1Name) == str:
+            p3,o3 = getListenerPose(listener,gripperTip,Target1Name)
+            print 'p3: ',p3,'\n'
         p=[p2[0]-p1[0],p2[1]-p1[1],p2[2]-p1[2]]
         print 'p: ',p,'\n'
         pError=math.sqrt(p[0]*p[0]+p[1]*p[1]+p[2]*p[2])
         print 'wurzel p2-p1: ', pError,'\n'
-
-        oError=abs(p3[2])
+        if type(Target1Name) == str:
+            oError=abs(p3[2])
+        else:
+            oError= abs(p2[2] - Target1Name[2])
         #print pError, ' ' , oError,'\n'
 
     print 'gripper reached position'
@@ -239,7 +248,7 @@ def getBoxAdjustedMatrixAndFacingAngleTF(listener,objectHandle,vehicleHandle,dis
     print 'target pose',new_poseTF
     return new_poseTF,m,angle
 
-def dropToPlace(placeHandle,shift,verticalPos,startConf,noVerticalArmForUpMovement,dist,listener,targetName,refName):
+def dropToPlace(placeHandle,shift,verticalPos,startConf,noVerticalArmForUpMovement,dist,listener,targetName,refName,gripperTip):
     print 'dropToPlace:',placeHandle,'\n'
     print 'targetName: ', targetName,'\n'
 
@@ -270,11 +279,12 @@ def dropToPlace(placeHandle,shift,verticalPos,startConf,noVerticalArmForUpMoveme
     print '\n\n\n\n\n\n', p
     msg = createArmJointState(p)
     pub_youbot_armJointState.publish(msg)
-    time.sleep(2) # pause to get in position
+    waitToReachGripperTarger(listener,p, gripperTip)
+   # time.sleep(2) # pause to get in position
 
 
     # wait to reach target
-    time.sleep(4)
+    #time.sleep(4)
     # openGripper: release cube
     pub_gripper.publish("open")
     
@@ -282,12 +292,13 @@ def dropToPlace(placeHandle,shift,verticalPos,startConf,noVerticalArmForUpMoveme
         # no vertical orintation to the target frame
         pub_fkik.publish("ikfalse")
     # prevent slipping over cube
-    time.sleep(1)
+    time.sleep(1)# pause so message can be received
     print p[2]
     p[2]+= 0.1
     msg = createArmJointState(p)
     pub_youbot_armJointState.publish(msg)
-    time.sleep(2.5)
+    #time.sleep(2.5)
+    waitToReachGripperTarger(listener,p, gripperTip)
     pub_fkik.publish("fk")
 
 # pick up a box from a specific place
@@ -302,7 +313,8 @@ def pickupBoxFromPlace(listener,boxHandle,pickupConf,targetName,refName,gripperT
     pub_fkik.publish("fk") 
     msg = createArmJointState(pickupConf)
     pub_youbot_armJointState.publish(msg)
-    time.sleep(4) #pause to get on position
+    time.sleep(6) #pause to get on position
+    #waitToReachGripperTarger(listener,pickupConf, gripperTip)
     # wait for youbot for receiving target
     waitToReachvehicleTargetNamePositionAndOrientation(listener,targetName,refName)
     pub_fkik.publish("iktrue")
@@ -321,14 +333,16 @@ def pickupBoxFromPlace(listener,boxHandle,pickupConf,targetName,refName,gripperT
     msg = createArmJointState(p)
     pub_youbot_armJointState.publish(msg)
     pub_fkik.publish("fk")
-    time.sleep(3)
+   # time.sleep(3)
+    waitToReachGripperTarger(listener,p, gripperTip)
 
 # drop sth. onto plattform
-def dropToPlatform(platform):
+def dropToPlatform(listener,platform, gripperTip):
     pub_fkik.publish("fk")
     msg = createArmJointState(platform)
     pub_youbot_armJointState.publish(msg)
     time.sleep(8)
+    #waitToReachGripperTarger(listener,platform, gripperTip)
     pub_gripper.publish("open")
     
 # pickup cube from platform    
@@ -337,7 +351,8 @@ def pickupFromPlatformAndReorient(listener,boxHandle,platformIntermediateDrop,ve
     pub_fkik.publish("fk")
     msg = createArmJointState(platformIntermediateDrop)
     pub_youbot_armJointState.publish(msg)
-    time.sleep(4)
+    time.sleep(6)
+    #waitToReachGripperTarger(listener,platformIntermediateDrop, gripperTip)
     pub_fkik.publish("ikfalse")
     p,rot = getListenerPose(listener,boxHandle,"map")
     msg = createArmJointState(p)
@@ -368,6 +383,7 @@ def pickupFromPlatformAndReorient(listener,boxHandle,platformIntermediateDrop,ve
     msg = createArmJointState(pickup)
     pub_youbot_armJointState.publish(msg)
     time.sleep(6)
+    #waitToReachGripperTarger(listener,pickup, gripperTip)
     pub_gripper.publish("open")
     time.sleep(2.5)
 
@@ -393,7 +409,8 @@ def pickupFromPlatformAndReorient(listener,boxHandle,platformIntermediateDrop,ve
     pub_youbot_armJointState.publish(msg)
     time.sleep(1)
     pub_fkik.publish("fk")
-    time.sleep(2)
+    waitToReachGripperTarger(listener,p, gripperTip)
+   # time.sleep(2)
 
 
      
@@ -548,52 +565,52 @@ if __name__ == '__main__':
     
     ## redBox first drop:
     print '\n\n\n\nDrive to place 3 ',      
-    dropToPlace(place3,0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     
     ### yellow box1 first pickup and intermediate drop:
     pickupBoxFromPlace(tf_sub,yellowBox1Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlatform(platformDrop2) # yellow box1 intermediate drop onto platform:
+    dropToPlatform(tf_sub,platformDrop2, gripperTip) # yellow box1 intermediate drop onto platform:
     pickupBoxFromPlace(tf_sub,yellowBox2Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01) # yellow box2 first pickup:
     #### drop yellow
-    dropToPlace(place2,0.04,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place2,0.04,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     pickupFromPlatformAndReorient(tf_sub,yellowBox1Name,platformIntermediateDrop,vehicleName,vehicleTargetName,gripperTip,dist1-0.01,pickup2)    
-    dropToPlace(place2,-0.04,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place2,-0.04,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     
     # build subtower on place 3
     pickupBoxFromPlace(tf_sub,redBox1Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlace(place2,0,dropHeight2,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place2,0,dropHeight2,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     
     # pickup green boxes
     pickupBoxFromPlace(tf_sub,greenBox1Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlatform(platformDrop1)
+    dropToPlatform(tf_sub,platformDrop1, gripperTip)
     
     pickupBoxFromPlace(tf_sub,greenBox2Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlatform(platformDrop3)
+    dropToPlatform(tf_sub,platformDrop3, gripperTip)
     
     pickupBoxFromPlace(tf_sub,greenBox3Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
     
     # set green boxes
-    dropToPlace(place3,0.08,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,0.08,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     pickupFromPlatformAndReorient(tf_sub,greenBox2Name,platformIntermediateDrop,vehicleName,vehicleTargetName,gripperTip,dist1-0.01,pickup2)
-    dropToPlace(place3,0.0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,0.0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     pickupFromPlatformAndReorient(tf_sub,greenBox1Name,platformIntermediateDrop,vehicleName,vehicleTargetName,gripperTip,dist1-0.01,pickup2)
-    dropToPlace(place3,-0.08,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)    
+    dropToPlace(place3,-0.08,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)    
     
     # replace red box
     pickupBoxFromPlace(tf_sub,redBox1Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlace(place1,0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place1,0,dropHeight1,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     
     # place yellow boxes on tower(green)
     pickupBoxFromPlace(tf_sub,yellowBox1Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)    
-    dropToPlatform(platformDrop2)
+    dropToPlatform(tf_sub,platformDrop2, gripperTip)
     pickupBoxFromPlace(tf_sub,yellowBox2Name,pickup2,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlace(place3,0.04,dropHeight2,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,0.04,dropHeight2,pickup2,False,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     pickupFromPlatformAndReorient(tf_sub,yellowBox1Name,platformIntermediateDrop,vehicleName,vehicleTargetName,gripperTip,dist1-0.01,pickup2)
-    dropToPlace(place3,-0.04,dropHeight2,pickup3,True,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,-0.04,dropHeight2,pickup3,True,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     # place red box on tower
     pub_fkik.publish("fk")
     pickupBoxFromPlace(tf_sub,redBox1Name,pickup1,vehicleTargetName,vehicleName,gripperTip,dist1-0.01)
-    dropToPlace(place3,0,dropHeight3,pickup1,True,dist1,tf_sub,vehicleTargetName,vehicleName)
+    dropToPlace(place3,0,dropHeight3,pickup1,True,dist1,tf_sub,vehicleTargetName,vehicleName,gripperTip)
     
     # return into the middle
     new_poseTF = Pose()
@@ -628,5 +645,6 @@ if __name__ == '__main__':
     else :# if 0
         print 'Simulator stopped value:',resSimStop
     print('Program ended')
+
 
 
